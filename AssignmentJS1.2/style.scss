@@ -1,7 +1,6 @@
 *{
     margin: 0 auto;
 }
-
 #main{
     display: flex;
     flex-direction: column;
@@ -16,9 +15,7 @@
         padding: 30px;
     }
     #board{
-        background-color: red;
         display: flex;
-        
         .dice{
             border: solid 2px black;
             border-radius: 10px;
@@ -30,9 +27,7 @@
             text-align: center;
         }
     }     
-    
 }
-
 #roll{
     background-color: #ee5858;
     color: white;

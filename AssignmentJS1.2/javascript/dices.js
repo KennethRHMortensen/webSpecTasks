@@ -1,7 +1,6 @@
 //Random number as innerHTML to display a natural number on a die
 //Target and declare variables
 let button = document.getElementById("roll");
-//
 let die = document.getElementsByClassName("dice");
 
 //Create array of numbers for global usage
@@ -18,7 +17,7 @@ let rollDice = function(){
     console.log(numbers);
 }
 
-//Generate five random numbers between 1 and 6 on each die
+//Generate a random integers between 1 and 6 on each die
 let generateNumber = function(){
     let number = Math.floor((Math.random() * 6) + 1);
     return number;
