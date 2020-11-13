@@ -1,12 +1,29 @@
 /* Todo list */
+const $ = function(id){
+    return document.getElementById(id);
+}
 
-let todoList = document.getElementById('todoItemList');
-let addBtn = document.getElementById('addItem');
-let textField = document.getElementById('inputText');
+let todoList = $('todoItemList');
+let addBtn = $('addItem');
+let textField = $('inputText');
+let todo = $('todo');
+let saveBtn = $('saveBtn');
+let listBox = $('listBox')
 
+let listBox = [];
+
+// check if input value is > 0, if yes = run addItem function
+function addItemAfterClick(){
+    if (textField.value.length > 0) {
+        addItem();
+    } else {
+        alert('You forgot to put in some text');
+    }
+}
 function addItem () {
+    
     //  Defines a value based on the users input
-    let textInput = document.getElementById('inputText').value;
+    let textInput = $('inputText').value;
 
     //  Creates a todo list item and divs and adds classnames
     const newLi = document.createElement('li');
@@ -49,7 +66,7 @@ function addItem () {
     
 
     //  Loops through each list item and adds an event listener with a function
-    let todoListItms = document.getElementById('todoItemList').childNodes;
+    let todoListItms = $('todoItemList').childNodes;
     todoListItms.forEach(function() {
         newDeleteBtn.addEventListener('click', deleteItem);
         liText.addEventListener('click', crossItem);
@@ -81,9 +98,38 @@ function addItem () {
         }
         liText.innerHTML = txt;
     }
-    
+
     // Resets the input field
     textField.value = '';
+    } 
+addBtn.addEventListener('click', addItemAfterClick);
+
+function displaySaveBtn(){
+    if (todoList.getElementsByTagName('li').length >= 1){
+        saveBtn.style.display = "block";
+    } else{
+        saveBtn.style.display = "none";
+    }
+}
+window.setInterval(displaySaveBtn, 100);
+
+function saveList(){
+    const addDiv = document.createElement('div');
+    addDiv.setAttribute('class', 'savedList');
+
+    const addTitle = document.createElement('h2');
+    addTitle.setAttribute('class', 'listTitle')
+    listBox.appendChild(addDiv);    
 }
 
-addBtn.addEventListener('click', addItem);
+function addListToLists(){
+    /*let titleText = prompt('Write the title of your list');
+    if (titleText == null || titleText == ''){*/
+        saveList();
+
+        /*const addTitle = document.createElement('h2')
+        addTitle.setAttribute('class', 'listTitle');*/
+
+    }
+    saveBtn.addEventListener('click', addListToLists);
+
