@@ -1,5 +1,6 @@
 *{
     margin: 0;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 main{
@@ -16,21 +17,43 @@ main{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 50px 0 0 0;
+    margin: 50px 0;
+    width: 500px;
+    height: 50vh;
+}
+
+h1{
+    font-size: 40px;
 }
 
 #input{
     display: flex;
     flex-direction: row-reverse;
+    margin: 10px 0;
+    width: 100%;
 }
 
 #addItem{
-    width: 100%;
-    padding: 5px;
+    padding: 10px 10px;
+    text-transform: uppercase;
+    margin-left: 10px;
+    background-color: rgb(28, 208, 231);
+    border: none;
+    color: #ffffff;
+    outline: none;
 }
 
 #inputText{
     outline: none;
+    width: 100%;
+    background-color: rgb(28, 208, 231);
+    padding: 10px 10px;
+    border: none;
+    color: #ffffff;
+}
+
+#inputText::placeholder{
+    color: #ffffff;
 }
 
 #todoItemList{
@@ -45,46 +68,73 @@ main{
     margin: 5px 0;
     list-style: none;
     justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(28, 208, 231);
 }
 
 .liText{
     margin: 0;
+    color: #ffffff;
 }
 
 .liBtns{
-    
+    width: 65px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .done{
-    background-color: aqua;
+    background-color: rgb(28, 231, 113);
+}
+
+.editBtn, .deleteBtn{
+    border: none;
+    padding: 5px 10px;
+    outline: none;
+    color: #ffffff;
 }
 
 .editBtn{
-    background-color: blue;
+    background-color: rgb(184, 241, 78);
 }
 
 .deleteBtn{
-    background-color: red;
+    background-color: rgb(241, 83, 78);
 }
+
 #saveBtn{
     display: none;
-
+    width: 100px;
+    outline: none;
+    padding: 5px;
+    color: #ffffff;
+    font-size: 15px;
+    background-color: rgb(65, 211, 65);
+    border: none;
 }
 
 #saveBtnBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 40px;
-    width: 40px;
-    background-color: red;
+    width: 100%;
 }
 
 #listBox{
     width: 100%;
     height: 50vh;
     background-color: beige;
-
 }
 
 .savedList{
     width: 25%;
     background-color: green;
+}
+
+#tutorial{
+    height: 100vh;
+    background-color: white;
+    width: 100%;
 }

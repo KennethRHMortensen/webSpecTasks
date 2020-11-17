@@ -10,7 +10,7 @@ let todo = $('todo');
 let saveBtn = $('saveBtn');
 let listBox = $('listBox')
 
-let listBox = [];
+/*let listBox = [];*/
 
 // check if input value is > 0, if yes = run addItem function
 function addItemAfterClick(){
@@ -69,7 +69,7 @@ function addItem () {
     let todoListItms = $('todoItemList').childNodes;
     todoListItms.forEach(function() {
         newDeleteBtn.addEventListener('click', deleteItem);
-        liText.addEventListener('click', crossItem);
+        newLi.addEventListener('click', crossItem);
         newEditBtn.addEventListener('click', editItem);
     });
 
