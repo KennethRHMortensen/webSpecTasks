@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <title>Book System</title>
 </head>
 <body>
@@ -41,7 +43,7 @@
    <main>
        <!-- SEARCH HEADER -->
         <div id="header">   
-            <input type="search" name="" id="">
+            <input type="search" name="" id="" placeholder="Search for a book...">
         </div>
         
         <!-- FILTER BUTTONS -->
@@ -54,11 +56,19 @@
             <button class="filterBtn">genre</button>
             <button class="filterBtn">genre</button>
             <button class="filterBtn">genre</button>
-            <button class="sort">sorter</button>
+            <button class="sort">sort</button>
             <button class="moreFilters">+</button>
         </div>
         <!-- BOOK DISPLAY -->
         <div id="container">
+            <div class="book">
+                <div id="bookPicture"></div>
+                <div class="bookInfo">
+                    <h4 class="genre">thriller</h4>
+                    <h2 class="title">lille havfrue</h2>
+                    <h3 class="author">niels larsen</h3>
+                </div>
+            </div>
             <div class="book">
                 <div id="bookPicture"></div>
                 <div class="bookInfo">
@@ -68,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <button class="loadMore">Vis flere</button>
+        <button class="loadMore">Show more</button>
     </main>
     <script src="./javascript/index.js"></script>    
 </body>
