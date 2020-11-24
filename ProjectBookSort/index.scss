@@ -1,0 +1,84 @@
+*{
+    margin: 0 auto;
+}
+
+body{
+    width: 100%;
+    display: flex;
+}
+
+img{
+    width: 100%;
+    height: auto;
+}
+
+aside{
+    flex: 1;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    #title{
+        padding: 10px;
+        width: 90%;
+        input{
+            width: 90%;
+        }
+
+    }
+    #author{
+        width: 90%;
+        padding: 10px;
+        input{
+            width: 90%;
+        }
+    }
+    #checkbox{
+        display: flex;
+        flex-direction: column;
+        margin-left: 10%;
+        label{
+            padding: 5px 0px;
+            input{
+                
+            } 
+        }
+        
+        }
+    }
+
+
+main{
+    width: 1024px;
+    height: 200px;
+    background-color: red;
+    #header{
+
+    }
+    #tabs{
+
+    }
+    #container{
+        .book{
+
+        }
+        #bookPicture{
+
+        }
+        .bookInfo{
+            .genre{
+
+            }
+            .title{
+
+            }
+            .author{
+
+            }
+        }
+
+    }
+}

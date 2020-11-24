@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Book System</title>
+</head>
+<body>
+<!-- SIDEBAR - ADD BOOK -->
+    <aside>
+        <div id="title">
+            <p>title</p>
+            <input type="text">
+        </div>
+
+        <div id="author">
+            <p>author</p>
+            <input type="text">
+        </div>
+
+        <div id="checkbox">
+            <label for="checkbox"><input type="checkbox" name="" id="">Thriller</label>
+            <label for="checkbox"><input type="checkbox" name="" id="">Thriller</label>
+            <label for="checkbox"><input type="checkbox" name="" id="">Thriller</label>
+            <label for="checkbox"><input type="checkbox" name="" id="">Thriller</label>
+            <label for="checkbox"><input type="checkbox" name="" id="">Thriller</label>
+            
+        </div>
+
+        <div id="addPic">
+                <input type="file" name="bookPicture" accept="image/jpeg,image/png" id="bookPic">
+                <input type="submit" value="add picture">
+            </form>
+
+        </div>
+
+        <button id="add">add book</button>
+    </aside>
+
+   <main>
+       <!-- SEARCH HEADER -->
+        <div id="header">   
+            <input type="search" name="" id="">
+        </div>
+        
+        <!-- FILTER BUTTONS -->
+        <div id="tabs">
+            <button class="filterBtn">genre</button>
+            <button class="filterBtn">genre</button>
+            <button class="filterBtn">genre</button>
+            <button class="filterBtn">genre</button>
+            <button class="filterBtn">genre</button>
+            <button class="filterBtn">genre</button>
+            <button class="filterBtn">genre</button>
+            <button class="filterBtn">genre</button>
+            <button class="sort">sorter</button>
+            <button class="moreFilters">+</button>
+        </div>
+        <!-- BOOK DISPLAY -->
+        <div id="container">
+            <div class="book">
+                <div id="bookPicture"></div>
+                <div class="bookInfo">
+                    <h4 class="genre"></h4>
+                    <h2 class="title"></h2>
+                    <h3 class="author"></h3>
+                </div>
+            </div>
+        </div>
+        <button class="loadMore">Vis flere</button>
+    </main>
+    <script src="./javascript/index.js"></script>    
+</body>
+</html>
