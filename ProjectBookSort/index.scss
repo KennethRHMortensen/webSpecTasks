@@ -15,8 +15,8 @@ img{
 }
 
 aside{
-    width: 15%;
-    background-color: grey;
+    max-width: 15%;
+    background-color: rgb(196, 196, 196);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,17 +42,40 @@ aside{
         display: flex;
         flex-direction: column;
         margin-left: 10%;
+        margin-bottom: 10px;
         label{
             padding: 5px 0px;
+            margin-left: 0px;
             input{
-                
-            } 
+            }
         }
         
+    }
+    
+    #addPic{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        input[type=file] {
+            display: none;
+            
+        }
+        #addPicture{
+            display: inline-block;
+            border: 1px solid black;
+            padding: 5px;
+            margin-bottom: 5px;
+            background: white;
+            text-transform: capitalize;
         }
     }
 
-
+    #add{
+        padding: 10px;
+        text-transform: capitalize;
+    }
+}
+    
 main{
     flex: 1;
     display: flex;
