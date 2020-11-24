@@ -15,10 +15,8 @@ img {
 }
 
 aside {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  background-color: grey;
+  max-width: 15%;
+  background-color: #c4c4c4;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -61,14 +59,47 @@ aside #checkbox {
       -ms-flex-direction: column;
           flex-direction: column;
   margin-left: 10%;
+  margin-bottom: 10px;
 }
 
 aside #checkbox label {
   padding: 5px 0px;
+  margin-left: 0px;
+}
+
+aside #addPic {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+}
+
+aside #addPic input[type=file] {
+  display: none;
+}
+
+aside #addPic #addPicture {
+  display: inline-block;
+  border: 1px solid black;
+  padding: 5px;
+  margin-bottom: 5px;
+  background: white;
+  text-transform: capitalize;
+}
+
+aside #add {
+  padding: 10px;
+  text-transform: capitalize;
 }
 
 main {
-  width: 1024px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   height: 200px;
   background-color: red;
 }
