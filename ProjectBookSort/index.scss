@@ -5,7 +5,7 @@
 }
 
 body{
-    width: 100%;
+    max-width: 100%;
     display: flex;
 }
 
@@ -58,7 +58,6 @@ aside{
         width: 100%;
         input[type=file] {
             display: none;
-            
         }
         #addPicture{
             display: inline-block;
@@ -120,8 +119,13 @@ main{
             border-radius: 10px;
             overflow: hidden;
         }
-        #bookPicture{
+        .bookPicture{
             width: 100%;
+            height: 250px;
+            background-image: url(./img/book_placeholder.png);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 100% 100%;
             img{
                 height: 250px;
             }
