@@ -13,7 +13,7 @@ img{
     width: 100%;
     height: auto;
 }
-
+/*** ADD BOOK ***/
 aside{
     max-width: 15%;
     background-color: rgb(196, 196, 196);
@@ -75,7 +75,7 @@ aside{
         text-transform: capitalize;
     }
 }
-    
+/*** CONTAINER OF BOOKS ***/
 main{
     flex: 1;
     display: flex;

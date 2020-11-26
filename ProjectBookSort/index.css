@@ -15,6 +15,7 @@ img {
   height: auto;
 }
 
+/*** ADD BOOK ***/
 aside {
   max-width: 15%;
   background-color: #c4c4c4;
@@ -97,6 +98,7 @@ aside #add {
   text-transform: capitalize;
 }
 
+/*** CONTAINER OF BOOKS ***/
 main {
   -webkit-box-flex: 1;
       -ms-flex: 1;
