@@ -136,7 +136,7 @@ main #tabs button {
   transition: background-color .25s;
 }
 
-main #tabs button:hover {
+main #tabs button.active {
   background-color: #5cc6f0;
 }
 
