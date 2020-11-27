@@ -134,9 +134,10 @@ main #tabs button {
   padding: 10px 15px;
   -webkit-transition: background-color .25s;
   transition: background-color .25s;
+  outline: none;
 }
 
-main #tabs button:hover {
+main #tabs button.active {
   background-color: #5cc6f0;
 }
 

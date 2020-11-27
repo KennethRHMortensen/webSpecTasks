@@ -97,8 +97,9 @@ main{
             border: none;
             padding: 10px 15px;
             transition: background-color .25s;
+            outline: none;
         }
-        button:hover{
+        button.active{
             background-color: rgb(92, 198, 240);
         }
     }
