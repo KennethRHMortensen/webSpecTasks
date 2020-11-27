@@ -23,12 +23,11 @@
             </div>
 
             <div id="checkbox">
-                <label><input type="checkbox" name="" id="thriller" value ="Thriller">Thriller</label>
-                <label><input type="checkbox" name="" id="crime" value ="Crime">Crime</label>
-                <label><input type="checkbox" name="" id="drama" value ="Drama">Drama</label>
-                <label><input type="checkbox" name="" id="adventure" value ="Adventure">Adventure</label>
-                <label><input type="checkbox" name="" id="scifi" value ="Sci-Fi">Sci-Fi</label>
-                
+                <label><input type="checkbox" name="genre" class="checked" id="thriller" value ="Thriller">Thriller</label>
+                <label><input type="checkbox" name="genre" class="checked" id="crime" value ="Crime">Crime</label>
+                <label><input type="checkbox" name="genre" class="checked" id="drama" value ="Drama">Drama</label>
+                <label><input type="checkbox" name="genre" class="checked" id="adventure" value ="Adventure">Adventure</label>
+                <label><input type="checkbox" name="genre" class="checked" id="scifi" value ="Sci-Fi">Sci-Fi</label>
             </div>
             <!-- ADD PICTURE TO BOOK -->
             <div id="addPic">
@@ -58,7 +57,11 @@
             <button class="filterBtn" id="scifi">SciFi</button>
             <button class="filterBtn" id="drama">Drama</button>
             <button class="filterBtn" id="horror">Horror</button>
-            <button class="sort">sort</button>
+            <select name="sortBooks" id="sort">
+                <option selected="selected" value="Random">Random</option>
+                <option value="Author" id="bookAuthor">Author A/Z</option>
+                <option value="Title" id="bookTitle">Title A/Z</option>
+            </select>
         </div>
 
         <!-- BOOK DISPLAY -->
