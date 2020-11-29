@@ -12,7 +12,6 @@ let sort = $('sort');
 const addBook = function () {
     if (isLocalStorageEnabled) {
         console.log(`display the object books: ${localStorage}`); //displays the books objects items in console
-        let books;
         let data = localStorage.getItem('books'); //defines the value of data as the stored data in books from our localstorage
         console.log(`display the type of data and content ${typeof data} data: ${data}`); //displays the type of our variable "data", and writes the data values in console
         if (data == null) { //If no data is found, empty the books array
@@ -38,6 +37,18 @@ const addBook = function () {
     } else {
         console.log('You must allow local storage in your browser');
     }   
+}
+
+//Determines the localstorage function, to make sure its working
+const isLocalStorageEnabled = function () {
+    let foo = 'bar';
+    try {
+        localStorage.setItem(foo, foo);
+        localStorage.removeItem(foo);
+        return true;
+    } catch(e) {
+        return false;
+    }
 }
 
 //create bookshelf to display all added books
@@ -93,20 +104,9 @@ const addImageToBook = function(){
     }
 }
 
-//Determines the localstorage function, to make sure its working
-const isLocalStorageEnabled = function () {
-    let foo = 'bar';
-    try {
-        localStorage.setItem(foo, foo);
-        localStorage.removeItem(foo);
-        return true;
-    } catch(e) {
-        return false;
-    }
-}
-
 
 // resets localstorage everytime browser is refreshed
+/*
 if (isLocalStorageEnabled) {
     localStorage.removeItem('foo');
     let book = {
@@ -120,10 +120,9 @@ if (isLocalStorageEnabled) {
 } else {
     console.log('You must allow local storage in your browser');
 }
-
+*/
 addBtn.addEventListener('click', addBook);
 addImage.addEventListener('change', addImageToBook, true);
-
 
 const checkIfGenre = function(){
     let genres='';
@@ -147,6 +146,21 @@ const checkIfGenre = function(){
     }
     return genres;
 }
+
+const sortBy = function(){
+    let books = [];
+    books.sort();
+
+}
+
+
+sort.addEventListener('change', sortBy);
+
+
+
+
+
+
 
 /*const sortByTitle = function(selected){
     let tempArr = new Array();
