@@ -12,18 +12,12 @@ let addImage = $('addImage');
 let sort = $('sort');
 let clear = $('clearLocalStorage');
 let book = {};
+let bookShelf = $('container');
+
 
 // ADD BOOK TO ARRAY
 // Create global array of books
 let books = [];
-
-// Append input values to the book 
-
-// Reset input field and move focus to next input field
-
-    // Append cover image to the book
-
-// Push book to array on click 
 
 
 // CHECK IF LOCALSTORAGE IN BROWSER IS TRUE OR FALSE 
@@ -57,29 +51,50 @@ const clearLocalStorage = function (){
 
 // ADD BOOK TO ARRAY 'BOOKS'
 const addBook = function (){
-    // define book as an object
-    let book = {
+    // assign book as object
 
-        title: $('userTitle').value,
-        author: $('userAuthor').value,
-        genre: (checkGenre()),
-        image: $('selectImage').value
-    
-    };
-    
-    books.push(book); 
-    
-    let s = JSON.stringify(books); 
-    
-    localStorage.setItem('book', s); 
+        let book = {
 
-    checkGenre(book);
+            title: $('userTitle').value,
+            author: $('userAuthor').value,
+            genre: (checkGenre()),
+            image: $('selectImage').value
+        
+        };
+        if(!book.title){
+            alert('you forgot to write a title');
+            return false;
+        }
+        if(!book.author){
+            alert('you forgot to add an author');
+            return false;
+        }
+        if(!book.genre){
+            alert('you forgot to add a genre');
+            return false;
+        }
+        // Reset input field and move focus to next input field
 
-    addBookToContainer(book); 
-    
-    // addImageToBook(book);  
-    
-    addToLocalStorage(book);
+        // add book to array of books
+        books.push(book); 
+        
+        // convert books into JSON string
+        let s = JSON.stringify(books); 
+        
+        // set book as item with values 's' to localstorage
+        localStorage.setItem('book', s); 
+
+        // apply genres checked in checkboxes
+        checkGenre(book);
+
+        // Append cover image to the book
+        //addImageToBook(book);  
+        
+        // Push book to array on click 
+        addBookToContainer(book); 
+
+        // add book to local storage
+        addToLocalStorage(book);
 
 }
 
@@ -103,12 +118,48 @@ const checkGenre = function(){
     return genres;
 }
 
+const addBookToContainer = function (book) {
+    // create new book as div with classes assigned to it
+    let newBook = document.createElement('div');
+    newBook.setAttribute('class', 'book ' + `${book.genre = checkGenre()}`);
+    
+    // create div with info about book, inside of book     
+    let newBookInfo = document.createElement('div');
+    newBookInfo.setAttribute('class', 'bookInfo');
+
+    // create header with textnode of the checked genre    
+    let newBookGenre = document.createElement('h4');
+    newBookGenre.setAttribute('class', 'genre');
+    let genreText = document.createTextNode(`${book.genre}`);
+    newBookGenre.appendChild(genreText);
+    
+    // set coverpicture of book    
+    let newBookTitle = document.createElement('h2');
+    newBookTitle.setAttribute('class', 'title');
+    let titleText = document.createTextNode(`${book.title}`);
+    newBookTitle.appendChild(titleText);
+    
+    // set coverpicture of book    
+    let newBookAuthor = document.createElement('h3');
+    newBookAuthor.setAttribute('class', 'author');
+    let authorText = document.createTextNode(`${book.author}`);
+    newBookAuthor.appendChild(authorText);
+
+    // set coverpicture of book
+    let newBookPic = document.createElement('div');
+    newBookPic.setAttribute('class', 'bookPicture' + 'id', 'bookPic');
+    
+    newBookInfo.append(newBookGenre, newBookTitle, newBookAuthor);
+    newBook.append(newBookPic, newBookInfo);
+    bookShelf.appendChild(newBook);
+}
+
 // ADD TO LOCALSTORAGE WHEN ADDING BOOK
 const addToLocalStorage = function (book){
     if (isLocalStorageEnabled) {
         let data = localStorage.getItem('books'); 
-        console.log('test ' + books);
-        // if there is any data, parse it to books array
+        console.log('This is your current array of books' + books);
+        // If there is any data, parse it to books array
         if (data) { 
             books = JSON.parse(data); 
         // Else console log that no data has been written or checked
@@ -118,49 +169,11 @@ const addToLocalStorage = function (book){
         }
     let s = JSON.stringify(books); 
     localStorage.setItem('books', s); 
-    console.log(`This is the values of the books you just added: ${book.title}\nbook.author = ${book.author}\nbook.genre = ${book.genre = checkGenre()}\nbook.image = ${book.image}`);
+    console.log(`This is the values of the books you just added: \nbook.title = ${book.title}\nbook.author = ${book.author}\nbook.genre = ${book.genre = checkGenre()}\nbook.image = ${book.image}`);
     } else {
     console.log('You must allow local storage in your browser');
     }   
 }
-
-//create bookshelf to display all added books
-let bookShelf = $('container');
-const addBookToContainer = function () {
-   
-    //create and append book div and input values when adding a book
-    let newBook = document.createElement('div');
-    newBook.setAttribute('class', 'book ' + `${book.genre = checkGenre()}`);
-
-    let newBookPic = document.createElement('div');
-    newBookPic.setAttribute('class', 'bookPicture' + 'id', 'bookPic');
-    
-    let newBookInfo = document.createElement('div');
-    newBookInfo.setAttribute('class', 'bookInfo');
-
-    let newBookGenre = document.createElement('h4');
-    newBookGenre.setAttribute('class', 'genre');
-    
-    let genreText = document.createTextNode(`${book.genre}`);
-    newBookGenre.appendChild(genreText);
-    
-    let newBookTitle = document.createElement('h2');
-    newBookTitle.setAttribute('class', 'title');
-    
-    let titleText = document.createTextNode(`${book.title}`);
-    newBookTitle.appendChild(titleText);
-    
-    let newBookAuthor = document.createElement('h3');
-    newBookAuthor.setAttribute('class', 'author');
-    
-    let authorText = document.createTextNode(`${book.author}`);
-    newBookAuthor.appendChild(authorText);
-    
-    newBookInfo.append(newBookGenre, newBookTitle, newBookAuthor);
-    newBook.append(newBookPic, newBookInfo);
-    bookShelf.appendChild(newBook);
-}
-
 const initBookList = function(){
 
 }
