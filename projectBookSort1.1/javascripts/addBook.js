@@ -40,7 +40,7 @@ const clearLocalStorage = function (){
     localStorage.clear();
     window.location.reload();
     // HOW DO I CHECK IF LOCAL STORAGE IS CLEARED?????
-        if (localStorage == ''){
+        if (!localStorage.getItem()){
             console.log('Localstorage is now cleared')
         }
     } else {
@@ -48,32 +48,40 @@ const clearLocalStorage = function (){
     }
 }
 
+// if book input fields does not have values, return false with alert to stop the function
+const checkIfAddBook = function (book){
+    if(!book.title){
+        alert('you forgot to write a title');
+        $('userTitle').focus();
+        return false;
+    }
+    if(!book.author){
+        alert('you forgot to add an author');
+        $('userAuthor').focus();
+        return false;
+    }
+    if(!book.genre){
+        alert('you forgot to add a genre');
+        $('checkbox').focus();
+        return false;
+    }
+}
 
 // ADD BOOK TO ARRAY 'BOOKS'
 const addBook = function (){
+
     // assign book as object
-
         let book = {
-
             title: $('userTitle').value,
             author: $('userAuthor').value,
             genre: (checkGenre()),
             image: $('selectImage').value
-        
         };
-        if(!book.title){
-            alert('you forgot to write a title');
+        if(checkIfAddBook(book) == false){
             return false;
-        }
-        if(!book.author){
-            alert('you forgot to add an author');
-            return false;
-        }
-        if(!book.genre){
-            alert('you forgot to add a genre');
-            return false;
-        }
-        // Reset input field and move focus to next input field
+        } 
+
+        // reset input field and move focus to next input field
 
         // add book to array of books
         books.push(book); 
@@ -87,7 +95,7 @@ const addBook = function (){
         // apply genres checked in checkboxes
         checkGenre(book);
 
-        // Append cover image to the book
+        // append cover image to the book
         //addImageToBook(book);  
         
         // Push book to array on click 
