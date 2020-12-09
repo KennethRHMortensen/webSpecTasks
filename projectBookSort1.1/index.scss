@@ -17,63 +17,84 @@ img{
 aside{
     min-width: 10%;
     background-color: rgb(196, 196, 196);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 10px;
     text-align: center;
     text-transform: uppercase;
-    #title{
-        padding: 10px;
-        width: 90%;
-        input{
-            width: 90%;
-        }
-
-    }
-    #author{
-        width: 90%;
-        padding: 10px;
-        input{
-            width: 90%;
-        }
-    }
-    #checkbox{
+    #addBookMenu{
+        padding: 10px 0px;
         display: flex;
         flex-direction: column;
-        margin-left: 10%;
-        margin-bottom: 10px;
-        label{
-            padding: 4px 0px;
-            margin-left: 0px;
-            font-size: 12px;
+        align-items: center;
+        position: sticky;
+        top: 10px;
+        width: 100%;
+    
+        #title{
+            padding: 10px;
+            width: 90%;
             input{
+                width: 90%;
+            }
+
+        }
+        #author{
+            width: 90%;
+            padding: 10px;
+            input{
+                width: 90%;
             }
         }
-    }
-    
-    #addPic{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-        height: 100px;
-        input[type=file] {
-            display: none;
+        #checkbox{
+            display: flex;
+            flex-direction: column;
+            margin-left: 10%;
+            margin-bottom: 10px;
+            label{
+                padding: 4px 0px;
+                margin-left: 0px;
+                font-size: 12px;
+                input{
+                }
+            }
         }
-        #addPicture{
-            display: inline-block;
-            border: 1px solid black;
-            padding: 5px;
-            background: white;
-            text-transform: capitalize;
-        }
-    }
+        
+        #addPic{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            height: 100px;
+            input[type=file] {
+                display: none;
+                
+            }
+            #addPicture{
+                font-size: 13.3333px;
+                display: inline-block;
+                border: 1px solid rgb(121, 121, 121);
+                border-radius: 2px;
+                padding: 5px;
+                background-color: #EFEFEF;
+                text-transform: capitalize;
+                cursor: pointer;
+            }
+            #addPicture:hover{
+                background-color: #e5e5e5;
 
-    #add{
-        padding: 10px;
-        margin-bottom: 10px;
-        text-transform: capitalize;
+            }
+        }
+
+        #add{
+            padding: 10px;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+            cursor: pointer;
+
+        }
+        #clearLocalStorage{
+            cursor: pointer;
+
+        }
     }
 }
 /*** CONTAINER OF BOOKS ***/
@@ -83,6 +104,8 @@ main{
     flex-direction: column;
     align-items: center;
     padding: 30px;
+    overflow: hidden;
+
     #header{
         margin: 20px 0;
         input{
@@ -106,14 +129,15 @@ main{
         }
     }
     #container{
-        width: 1300px;
         margin: 30px 0;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        row-gap: 30px;
+        grid-gap: 30px;
         flex-wrap: wrap;
+        overflow: hidden;
+        justify-content: space-evenly;
         .book{
-            width: 300px;
+            width: 250px;
             height: 350px;
             background-color: #ececec;
             display: flex;
@@ -121,8 +145,12 @@ main{
             justify-content: space-between;
             border-radius: 10px;
             overflow: hidden;
+            display: none;
         }
-        .bookPictureid{
+        .show{
+            display: flex;
+        }
+        .bookPicture{
             width: 100%;
             height: 100%;
             background-image: url(./img/book_placeholder.png);
@@ -131,6 +159,9 @@ main{
             background-size: 100% 100%;
             img{
                 height: 250px;
+            }
+            #bookPic{
+            
             }
         }
         .bookInfo{
@@ -151,10 +182,5 @@ main{
             }
         }
 
-    }
-    .loadMore{
-        padding: 10px 15px;
-        border: none;
-        font-size: 18px;
     }
 }

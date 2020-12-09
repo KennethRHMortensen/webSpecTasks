@@ -11,35 +11,35 @@
 <body>
 <!-- SIDEBAR TO ADD BOOK -->
     <aside>
-        <form action="#" method="GET">
-            <div id="title">
-                <p>title</p>
-                <input id="userTitle" type="text">
-            </div>
+        <div id="addBookMenu">
+            <form action="#" method="GET">
+                <div id="title">
+                    <p>title</p>
+                    <input id="userTitle" type="text">
+                </div>
 
-            <div id="author">
-                <p>author</p>
-                <input id="userAuthor" type="text">
-            </div>
+                <div id="author">
+                    <p>author</p>
+                    <input id="userAuthor" type="text">
+                </div>
 
-            <div id="checkbox">
-                <label><input type="checkbox" name="genre" id="thriller" value ="Thriller">Thriller</label>
-                <label><input type="checkbox" name="genre" id="crime" value ="Crime">Crime</label>
-                <label><input type="checkbox" name="genre" id="drama" value ="Drama">Drama</label>
-                <label><input type="checkbox" name="genre" id="adventure" value ="Adventure">Adventure</label>
-                <label><input type="checkbox" name="genre" id="scifi" value ="Sci-Fi">Sci-Fi</label>
-            </div>
-            <!-- ADD PICTURE TO BOOK -->
-            <div id="addPic">
-                <form action="#" method="GET">
-                    <label id="addPicture">
-                        <input type="file" id="selectImage">Add cover image
+                <div id="checkbox">
+                    <label><input type="checkbox" name="genre" value="Thriller">Thriller</label>
+                    <label><input type="checkbox" name="genre" value="Crime">Crime</label>
+                    <label><input type="checkbox" name="genre" value="Drama">Drama</label>
+                    <label><input type="checkbox" name="genre" value="Adventure">Adventure</label>
+                    <label><input type="checkbox" name="genre" value="Sci-Fi">Sci-Fi</label>
+                </div>
+                <!-- ADD PICTURE TO BOOK -->
+                <div id="addPic">
+                    <label id="addPicture">Add cover image
+                        <input type="file" accept="image/*" id="selectImage">
                     </label>
-                </form>
-            </div>
-            <button id="add" type="submit">add book</button>
-        </form> 
-        <button id="clearLocalStorage">Clear Localstorage</button>   
+                </div>
+                <button id="add" type="submit">add book</button>
+            </form> 
+            <button id="clearLocalStorage">Clear Localstorage</button>   
+        </div>
     </aside>
 
    <main>
@@ -50,13 +50,12 @@
         
         <!-- FILTER BUTTONS -->
         <div id="tabs">
-            <button class="filterBtn allBooks active">All</button>
+            <button class="filterBtn active" id="all">All</button>
             <button class="filterBtn" id="thriller">Thriller</button>
             <button class="filterBtn" id="crime">Crime</button>
             <button class="filterBtn" id="adventure">Adventure</button>
             <button class="filterBtn" id="scifi">SciFi</button>
             <button class="filterBtn" id="drama">Drama</button>
-            <button class="filterBtn" id="horror">Horror</button>
 
             <select name="sortBooks" id="sort">
                 <option selected="selected" value="Random">Random</option>
@@ -66,49 +65,9 @@
         </div>
 
         <!-- BOOK SHELF -->
-        <div id="container">
-            <!-- <div class="book thriller">
-                <div class="bookPicture"></div>
-                <div class="bookInfo">
-                    <h4 class="genre">thriller</h4>
-                    <h2 class="title">lille havfrue</h2>
-                    <h3 class="author">bent larsen</h3>
-                </div>
-            </div>
-            <div class="book thriller">
-                <div class="bookPicture"></div>
-                <div class="bookInfo">
-                    <h4 class="genre">thriller</h4>
-                    <h2 class="title">lille havfrue</h2>
-                    <h3 class="author">niels larsen</h3>
-                </div>
-            </div>
-            <div class="book crime">
-                <div class="bookPicture"></div>
-                <div class="bookInfo">
-                    <h4 class="genre">crime</h4>
-                    <h2 class="title">test</h2>
-                    <h3 class="author">niels larsen</h3>
-                </div>
-            </div>
-            <div class="book crime">
-                <div class="bookPicture"></div>
-                <div class="bookInfo">
-                    <h4 class="genre">crime</h4>
-                    <h2 class="title">test</h2>
-                    <h3 class="author">bent larsen</h3>
-                </div>
-            </div>
-        -->            
-        </div>
-        <!-- 
-            <button class="loadMore">Show more</button> 
-        -->
+        <div id="container"></div>
     </main>
-    <!-- Old scripts
-        <script src="./javascripts/sortAndFilter.js"></script>
-    <script src="./javascripts/addBook.js"></script>    
-    --> 
+    
     <script src="./javascripts/addBook.js"></script>
 </body>
 </html>

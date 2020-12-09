@@ -8,19 +8,21 @@ const $ = function(id){
 
 // Global variables 
 let addBtn = $('add');
-let addImage = $('addImage');
 let sort = $('sort');
 let clear = $('clearLocalStorage');
-let book = {};
 let bookShelf = $('container');
+//let cover = document.querySelectorAll('.bookPicture');
 
-
-// ADD BOOK TO ARRAY
+// Assign book as object
+let book = {};
 // Create global array of books
 let books = [];
+let sortedBooks = [];
 
 
-// CHECK IF LOCALSTORAGE IN BROWSER IS TRUE OR FALSE 
+
+
+/************  CHECK IF LOCALSTORAGE IN BROWSER IS TRUE OR FALSE   *************/
 const isLocalStorageEnabled = function () {
     let test = 'this is a test';
     // if browser allows to set and remove item, it will return true, and therefor be enabled
@@ -34,22 +36,44 @@ const isLocalStorageEnabled = function () {
     }
 }
 
-// CLEAR LOCAL STORAGE IN BROWSER
-const clearLocalStorage = function (){
-    if (isLocalStorageEnabled) {
-    localStorage.clear();
-    window.location.reload();
-    // HOW DO I CHECK IF LOCAL STORAGE IS CLEARED?????
-        if (!localStorage.getItem()){
-            console.log('Localstorage is now cleared')
-        }
-    } else {
-    console.log('Local storage was not enabled, so there is nothing to clear');
-    }
+
+
+
+/************  ADD BOOK TO LIBARY ARRAY 'BOOKS'   *************/
+const addBook = function (e){
+    e.preventDefault();
+    // assign book as object
+        let book = {
+            title: $('userTitle').value,
+            author: $('userAuthor').value,
+            genre: checkGenre(),
+            image: $('selectImage').value
+        };
+        if(checkIfInfoLegit(book) == false){
+            return false;
+        } 
+        // apply genres checked in checkboxes
+        checkGenre(book);
+        // add book to array of books
+        books.push(book); 
+        // append cover image to the book
+        //addImageToBook(book);  
+        
+        // add book to container of books and display it
+        addBookToContainer(book); 
+        // reset input fields when book is added
+        $('userTitle').value = null;
+        $('userAuthor').value = null;
+        
+        // add book to local storage
+        addToLocalStorage(books);
+
 }
 
-// if book input fields does not have values, return false with alert to stop the function
-const checkIfAddBook = function (book){
+
+/************  CHECK IF BOOK HAS INPUT VALUES BEFORE ADDING   *************/
+// if book input fields does not have values, return false with alert to stop addBook function
+const checkIfInfoLegit = function (book){
     if(!book.title){
         alert('you forgot to write a title');
         $('userTitle').focus();
@@ -67,53 +91,15 @@ const checkIfAddBook = function (book){
     }
 }
 
-// ADD BOOK TO ARRAY 'BOOKS'
-const addBook = function (){
 
-    // assign book as object
-        let book = {
-            title: $('userTitle').value,
-            author: $('userAuthor').value,
-            genre: (checkGenre()),
-            image: $('selectImage').value
-        };
-        if(checkIfAddBook(book) == false){
-            return false;
-        } 
 
-        // reset input field and move focus to next input field
 
-        // add book to array of books
-        books.push(book); 
-        
-        // convert books into JSON string
-        let s = JSON.stringify(books); 
-        
-        // set book as item with values 's' to localstorage
-        localStorage.setItem('book', s); 
-
-        // apply genres checked in checkboxes
-        checkGenre(book);
-
-        // append cover image to the book
-        //addImageToBook(book);  
-        
-        // Push book to array on click 
-        addBookToContainer(book); 
-
-        // add book to local storage
-        addToLocalStorage(book);
-
-}
-
-// ADD GENRES SELECTED TO BOOK BEFORE PUSHING BOOK TO ARRAY
+/************  ADD GENRES SELECTED TO BOOK BEFORE PUSHING BOOK TO ARRAY  *************/
 const checkGenre = function(){
     let genres ='';
-
     let checkboxes = document.querySelectorAll('#checkbox input:checked');
-
-    checkboxes.forEach(element => {
         // for each checkbox checked, let genre get the attribute value assigned to it
+    checkboxes.forEach(element => {
         let genre = element.getAttribute('value');
         // if genres is not null, add comma behind the each value 
         if(genres != ''){
@@ -122,32 +108,36 @@ const checkGenre = function(){
         // add multiple genres to genres if selected
         genres += genre;
     });
-
     return genres;
 }
 
+
+
+/************  ADD AND APPEND BOOK AND ITS INPUTS TO CONTAINER  *************/
 const addBookToContainer = function (book) {
-    // create new book as div with classes assigned to it
+    // create new book as div with default class 'book' and 'show' and 'genre'
+    // assigned to it, where genre is equal to the checked boxes value from checkGenre function, 
+    // with all characters changed to lowercase to make them fit the ID's of filter buttons
     let newBook = document.createElement('div');
-    newBook.setAttribute('class', 'book ' + `${book.genre = checkGenre()}`);
+    newBook.setAttribute('class', 'book ' + 'show ' + `${book.genre.replace(',','').toLowerCase()}`);
     
     // create div with info about book, inside of book     
     let newBookInfo = document.createElement('div');
     newBookInfo.setAttribute('class', 'bookInfo');
 
-    // create header with textnode of the checked genre    
+    // set genre with textnode of the checked genre    
     let newBookGenre = document.createElement('h4');
     newBookGenre.setAttribute('class', 'genre');
     let genreText = document.createTextNode(`${book.genre}`);
     newBookGenre.appendChild(genreText);
     
-    // set coverpicture of book    
+    // set title of book    
     let newBookTitle = document.createElement('h2');
     newBookTitle.setAttribute('class', 'title');
     let titleText = document.createTextNode(`${book.title}`);
     newBookTitle.appendChild(titleText);
     
-    // set coverpicture of book    
+    // set author of book    
     let newBookAuthor = document.createElement('h3');
     newBookAuthor.setAttribute('class', 'author');
     let authorText = document.createTextNode(`${book.author}`);
@@ -155,171 +145,191 @@ const addBookToContainer = function (book) {
 
     // set coverpicture of book
     let newBookPic = document.createElement('div');
-    newBookPic.setAttribute('class', 'bookPicture' + 'id', 'bookPic');
+    newBookPic.setAttribute('class', 'bookPicture');
+    newBookPic.setAttribute('id', 'bookPic');
     
     newBookInfo.append(newBookGenre, newBookTitle, newBookAuthor);
     newBook.append(newBookPic, newBookInfo);
     bookShelf.appendChild(newBook);
 }
 
-// ADD TO LOCALSTORAGE WHEN ADDING BOOK
-const addToLocalStorage = function (book){
+
+
+/************  ADD TO LOCALSTORAGE WHEN ADDING BOOK  *************/
+const addToLocalStorage = function (books){
     if (isLocalStorageEnabled) {
-        let data = localStorage.getItem('books'); 
-        console.log('This is your current array of books' + books);
-        // If there is any data, parse it to books array
-        if (data) { 
-            books = JSON.parse(data); 
-        // Else console log that no data has been written or checked
-        }else {
-            // books = [];
-            console.log('No data to parse to books')
-        }
-    let s = JSON.stringify(books); 
-    localStorage.setItem('books', s); 
-    console.log(`This is the values of the books you just added: \nbook.title = ${book.title}\nbook.author = ${book.author}\nbook.genre = ${book.genre = checkGenre()}\nbook.image = ${book.image}`);
-    } else {
-    console.log('You must allow local storage in your browser');
-    }   
-}
-const initBookList = function(){
-
-}
-
-
-// Eventlisteners
-addBtn.addEventListener('click', addBook);
-// addImage.addEventListener('change', addImageToBook, true);
-clear.addEventListener('click', clearLocalStorage);
-document.addEventListener('load', isLocalStorageEnabled);
-document.addEventListener('load', initBookList);
-
-
-
-/*
-//Add a book to the container
-const addBook = function () {
-    if (isLocalStorageEnabled) {
-        console.log(`display the object books: ${localStorage}`); //displays the books objects items in console
-        let data = localStorage.getItem('books'); //defines the value of data as the stored data in books from our localstorage
-        console.log(`display the type of data and content ${typeof data} data: ${data}`); //displays the type of our variable "data", and writes the data values in console
-        if (data == null) { //If no data is found, empty the books array
-            books = [];
-        }else {
-            books = [JSON.parse(data)]; //If data has content, parse data values through JSON into the books array
-        }
-        //assign object to book with names and values
-        let book = {
-            title: $('userTitle').value,
-            author: $('userAuthor').value,
-            image: $('selectImage').value
-        };
-        let genres = checkIfGenre();
-        book.genre = genres;
-        books.push(book); //push the objects values into the books array
-        let s = JSON.stringify(books); //defines variable as a converted string through JSON of the books object names and values
-        localStorage.setItem('books', s); //sets our object 'books' with the values 's' as item to localstorage 
-        console.log(`check and display object values that are pushed into books array ${localStorage}`);
-        addBookToContainer(genres); //add new book with values to container
-        addImageToBook(); //function to change the divs background from default to selected image 
-        console.log(`book.title = ${book.title}\nbook.author = ${book.author}\nbook.genre = ${book.genre}\nbook.image = ${book.image}`);
+        // set local storage item name "books", with values of "s", and convert 
+        // this object in to a JSON string 
+        let s = JSON.stringify(books); 
+        localStorage.setItem('books', s); 
     } else {
         console.log('You must allow local storage in your browser');
     }   
 }
 
-//create bookshelf to display all added books
-let bookShelf = $('container');
 
-const addBookToContainer = function (genres) {
-    let book = {
-        title: $('userTitle').value,
-        author: $('userAuthor').value,
-        genre: genres,
-        image: $('selectImage').value
-    };
-    //create and append books div and info when adding a book
-    let newBook = document.createElement('div');
-    newBook.setAttribute('class', 'book ' + `${book.genre}`);
 
-    let newBookPic = document.createElement('div');
-    newBookPic.setAttribute('class', 'bookPicture' + 'id', 'bookPic');
-    
-    let newBookInfo = document.createElement('div');
-    newBookInfo.setAttribute('class', 'bookInfo');
 
-    let newBookGenre = document.createElement('h4');
-    newBookGenre.setAttribute('class', 'genre');
-    let genreText = document.createTextNode(`${book.genre}`);
-    newBookGenre.appendChild(genreText);
-    
-    let newBookTitle = document.createElement('h2');
-    newBookTitle.setAttribute('class', 'title');
-    let titleText = document.createTextNode(`${book.title}`);
-    newBookTitle.appendChild(titleText);
-    
-    let newBookAuthor = document.createElement('h3');
-    newBookAuthor.setAttribute('class', 'author');
-    let authorText = document.createTextNode(`${book.author}`);
-    newBookAuthor.appendChild(authorText);
-    
-    newBookInfo.append(newBookGenre, newBookTitle, newBookAuthor);
-    newBook.append(newBookPic, newBookInfo);
-    bookShelf.appendChild(newBook);
-}
-
-//Add image from user upload upon adding book, instead of default picture
-const addImageToBook = function(){
-   var file = $("selectImage").files[0];
-   var reader = new FileReader();
-   reader.onloadend = function(){
-      $('bookPic').style.backgroundImage = "url(" + reader.result + ")";        
-   }
-   if(file){
-      reader.readAsDataURL(file);
-    }else{
+/************  INITIALISE BOOKLIST AND DISPLAY STORED ARRAY UPON REFRESH  *************/
+const initBookList = function(){
+    // assign books as the item books from local storage in local scope
+    books = localStorage.getItem('books');
+    // if books has no values, empty books array and log info
+    if(!books){
+        books = [];
+        console.log('der er ingen bøger');
+    // if books has values, convert string to object and assign books 
+    // before logging the array of books
+    } else if(books){
+        books = JSON.parse(books);
+        console.log(books)
+        // for each book there are inside books array, add that book to the 
+        // container of books to be displayed on the page
+        books.forEach(book => {
+            addBookToContainer(book);
+        });
     }
 }
 
 
-// resets localstorage everytime browser is refreshed
-if (isLocalStorageEnabled) {
-    localStorage.removeItem('foo');
-    let book = {
-        title: $('userTitle').value,
-        author: $('userAuthor').value,
-        genre: document.getElementsByClassName('checked').value,
-        image: $('selectImage').value
-    };
-    let test = JSON.stringify(book);
-    localStorage.setItem('books', test);
-} else {
-    console.log('You must allow local storage in your browser');
+
+
+/************  CLEAR LOCAL STORAGE IN BROWSER   *************/
+const clearLocalStorage = function (){
+    if (isLocalStorageEnabled) {
+        localStorage.clear();
+        if (!localStorage.getItem('books')){
+            localStorage.setItem(
+                "consoleWarnAfterReload",
+                "Local storage is now cleared");
+            // when site refreshed, start console.log('Local storage is now cleared')
+            window.location.reload();
+            console.warn(localStorage.getItem("consoleWarnAfterReload"));
+            localStorage.removeItem("consoleWarnAfterReload");
+            };
+    } else {
+    console.log('Local storage was not enabled, so there is nothing to clear');
+    }
 }
 
+
+
+
+/************  FILTER BOOKS BY GENRE  *************/
+function filterSelection(e) {
+  let x, i;
+  // console log which attribute the argument of filterSelection is given
+  // to make sure it gets the ID of the button clicked and filters by that
+  e = this.getAttribute('id');
+  console.log(e)
+  x = document.getElementsByClassName("book");
+  
+  // loop through each book in the current displayed array and remove "show" class. 
+  // If the book contains the argument clicked or the argument is "all", 
+  // then add "show" class to books to display them 
+  for (i = 0; i < x.length; i++) {
+  	x[i].classList.remove("show");
+    if (x[i].classList.contains(e) || e == "all"){ 
+    	x[i].classList.add("show");
+    }   
+  }
+}
+
+// Add active class to the current button (highlight it)
+let filterContainer = $('tabs');
+let btns = filterContainer.getElementsByClassName("filterBtn");
+for (let i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function(){
+    let current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+
+
+
+
+/************  SORT BOOKS  *************/
+const sortBooks = function(){
+    // assign local stored item of books to books in local scope
+    books = localStorage.getItem('books');
+    // if books has no values, empty books array and log info
+    if(!books){
+        books = [];
+        console.log('there are no books to sort');
+    // if books has values, convert string to object and assign sorted 
+    // books to new array, and show table of the sorted array in console
+    }else if (books){
+        books = JSON.parse(books);
+        let sortedBooks = [...books].sort(compare);
+        console.table(sortedBooks);
+        //removeBooksFromContainer();
+    }    
+}   // compare authors value to sort books according to them
+    function compare(a, b){
+    let authorA = a.author.toLowerCase();
+    let authorB = b.author.toLowerCase();
+    // sort in descending order Z-A
+    if (authorA < authorB) return -1; 
+    // sort in ascending order A-Z
+    else if (authorA > authorB) return 1;
+    // if authors are equal sort nothing
+    else return 0;
+    }
+
+    // hide unsorted array
+    function removeBooksFromContainer(){
+        books.length = 0;
+}
+
+/************  EVENTLISTENERS   *************/
 addBtn.addEventListener('click', addBook);
-addImage.addEventListener('change', addImageToBook, true);
+window.addEventListener('load', isLocalStorageEnabled);
+window.addEventListener('load', initBookList);
+clear.addEventListener('click', clearLocalStorage);
+sort.addEventListener('change', sortBooks);
 
-const checkIfGenre = function(){
-    let genres='';
-    if(document.querySelector('#thriller:checked')){
-        genres += (document.querySelector('#thriller').value) + ', ';
+// Hardcorded filter buttons 
+$('all').addEventListener('click', filterSelection);
+$('thriller').addEventListener('click', filterSelection);
+$('crime').addEventListener('click', filterSelection);
+$('adventure').addEventListener('click', filterSelection);
+$('scifi').addEventListener('click', filterSelection);
+$('drama').addEventListener('click', filterSelection);
+
+
+/************  FUNCTIONS NOT FINNISHED ARE COMMENTED OUT   *************/
+
+/*
+const addImageToBook = function(book){
+    let cover = `image(${book.image})`
+    if(!book.image){
+        console.log('no image added');
+    } else {
+        book.style.backgroundImage = cover;
     }
-    if(document.querySelector('#crime:checked')){
-        genres += (document.querySelector('#crime').value) + ', '; 
-    }
-    if(document.querySelector('#drama:checked')){
-        genres += (document.querySelector('#drama').value) + ', ';
-    }
-    if(document.querySelector('#adventure:checked')){
-        genres += (document.querySelector('#adventure').value) + ', ';
-    }
-    if(document.querySelector('#scifi:checked')){
-        genres += (document.querySelector('#scifi').value) + ', ';
-    }
-    else if (genres == ''){
-        genres += 'No genre selected';
-    }
-    return genres;
 }
+*/
+
+
+
+/*
+const addBookOnEnter = function(){
+    addEventListener('keydown', function(e){
+        let whichKey = checkKeyPressed(e);
+        if (whichKey || keyCode === 13){
+            addBook();
+        }
+    });
+}
+function checkKeyPressed(e){
+    if(!(e.which === 13 || e.keyCode === 13)){
+        return false;
+    }else{        
+        console.log('You pressed enter');
+        return e.which || e.keyCode;
+    }
+}
+
+window.addEventListener('load', addBookOnEnter);
 */

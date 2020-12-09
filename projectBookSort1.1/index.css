@@ -19,6 +19,13 @@ img {
 aside {
   min-width: 10%;
   background-color: #c4c4c4;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+aside #addBookMenu {
+  padding: 10px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -29,30 +36,31 @@ aside {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 10px;
+  width: 100%;
+}
+
+aside #addBookMenu #title {
   padding: 10px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-aside #title {
-  padding: 10px;
   width: 90%;
 }
 
-aside #title input {
+aside #addBookMenu #title input {
   width: 90%;
 }
 
-aside #author {
+aside #addBookMenu #author {
   width: 90%;
   padding: 10px;
 }
 
-aside #author input {
+aside #addBookMenu #author input {
   width: 90%;
 }
 
-aside #checkbox {
+aside #addBookMenu #checkbox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -64,13 +72,13 @@ aside #checkbox {
   margin-bottom: 10px;
 }
 
-aside #checkbox label {
+aside #addBookMenu #checkbox label {
   padding: 4px 0px;
   margin-left: 0px;
   font-size: 12px;
 }
 
-aside #addPic {
+aside #addBookMenu #addPic {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -85,22 +93,34 @@ aside #addPic {
   height: 100px;
 }
 
-aside #addPic input[type=file] {
+aside #addBookMenu #addPic input[type=file] {
   display: none;
 }
 
-aside #addPic #addPicture {
+aside #addBookMenu #addPic #addPicture {
+  font-size: 13.3333px;
   display: inline-block;
-  border: 1px solid black;
+  border: 1px solid #797979;
+  border-radius: 2px;
   padding: 5px;
-  background: white;
+  background-color: #EFEFEF;
   text-transform: capitalize;
+  cursor: pointer;
 }
 
-aside #add {
+aside #addBookMenu #addPic #addPicture:hover {
+  background-color: #e5e5e5;
+}
+
+aside #addBookMenu #add {
   padding: 10px;
   margin-bottom: 10px;
   text-transform: capitalize;
+  cursor: pointer;
+}
+
+aside #addBookMenu #clearLocalStorage {
+  cursor: pointer;
 }
 
 /*** CONTAINER OF BOOKS ***/
@@ -119,6 +139,7 @@ main {
       -ms-flex-align: center;
           align-items: center;
   padding: 30px;
+  overflow: hidden;
 }
 
 main #header {
@@ -147,19 +168,22 @@ main #tabs button.active {
 }
 
 main #container {
-  width: 1300px;
   margin: 30px 0;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr 1fr;
-  row-gap: 30px;
+  grid-gap: 30px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  overflow: hidden;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 main #container .book {
-  width: 300px;
+  width: 250px;
   height: 350px;
   background-color: #ececec;
   display: -webkit-box;
@@ -174,9 +198,16 @@ main #container .book {
           justify-content: space-between;
   border-radius: 10px;
   overflow: hidden;
+  display: none;
 }
 
-main #container .bookPictureid {
+main #container .show {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+main #container .bookPicture {
   width: 100%;
   height: 100%;
   background-image: url(./img/book_placeholder.png);
@@ -185,7 +216,7 @@ main #container .bookPictureid {
   background-size: 100% 100%;
 }
 
-main #container .bookPictureid img {
+main #container .bookPicture img {
   height: 250px;
 }
 
@@ -209,11 +240,5 @@ main #container .bookInfo .title {
 
 main #container .bookInfo .author {
   font-size: 15px;
-}
-
-main .loadMore {
-  padding: 10px 15px;
-  border: none;
-  font-size: 18px;
 }
 /*# sourceMappingURL=index.css.map */
