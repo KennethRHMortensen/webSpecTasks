@@ -15,9 +15,9 @@ let bookShelf = $('container');
 
 // Assign book as object
 let book = {};
-// Create global array of books
+// Create global arrays of books
 let books = [];
-let sortedBooks = [];
+
 
 
 
@@ -177,7 +177,7 @@ const initBookList = function(){
     // if books has no values, empty books array and log info
     if(!books){
         books = [];
-        console.log('der er ingen bøger');
+        console.log('there are currently no books saved in your local storage');
     // if books has values, convert string to object and assign books 
     // before logging the array of books
     } else if(books){
@@ -195,18 +195,23 @@ const initBookList = function(){
 
 
 /************  CLEAR LOCAL STORAGE IN BROWSER   *************/
+// The idea was to set a new item in local storage and remove it after reload, that were supposed
+// to console.warn or log, the information that local storage had been reset
+// whenever the clear local storage button was clicked, but the reload function
+// doesn't seem to be able prevent console.log or warn from clearing after reload
+// without having to manually preserve console.log in browser
 const clearLocalStorage = function (){
     if (isLocalStorageEnabled) {
         localStorage.clear();
         if (!localStorage.getItem('books')){
-            localStorage.setItem(
-                "consoleWarnAfterReload",
-                "Local storage is now cleared");
+            let w = 'Local storage is now cleared';
+            localStorage.setItem('consoleWarnAfterReload', w);
             // when site refreshed, start console.log('Local storage is now cleared')
             window.location.reload();
-            console.warn(localStorage.getItem("consoleWarnAfterReload"));
-            localStorage.removeItem("consoleWarnAfterReload");
+            console.warn(localStorage.getItem('consoleWarnAfterReload'));
+            localStorage.removeItem('consoleWarnAfterReload');
             };
+            
     } else {
     console.log('Local storage was not enabled, so there is nothing to clear');
     }
@@ -257,30 +262,71 @@ const sortBooks = function(){
     if(!books){
         books = [];
         console.log('there are no books to sort');
-    // if books has values, convert string to object and assign sorted 
-    // books to new array, and show table of the sorted array in console
-    }else if (books){
+        return false;
+    // if books has values and a sorting option has been selected, convert JSON.string 
+    // to object and assign this sorted object of books to a new array, and show table of the sorted array in console
+    } else if(books && sort.value == 'Author') sortedByAuthor()
+    else if(books && sort.value == 'Title') sortedByTitle()
+    else if(books && sort.value == 'Random') sortedRandomly()
+    
+}   
+    // convert JSON string to object and sort this object by comparison or random
+    // before assigning it to a new array that should be displayed instead of the original array
+    function sortedByAuthor(){
         books = JSON.parse(books);
-        let sortedBooks = [...books].sort(compare);
-        console.table(sortedBooks);
-        //removeBooksFromContainer();
-    }    
-}   // compare authors value to sort books according to them
-    function compare(a, b){
-    let authorA = a.author.toLowerCase();
-    let authorB = b.author.toLowerCase();
-    // sort in descending order Z-A
-    if (authorA < authorB) return -1; 
-    // sort in ascending order A-Z
-    else if (authorA > authorB) return 1;
-    // if authors are equal sort nothing
-    else return 0;
+        let sortedByAuthor = [...books].sort(compareAuthors);
+        $('container').innerHTML = '';
+        console.table(sortedByAuthor);
+        sortedByAuthor.forEach(book => {
+            addBookToContainer(book);
+        });
+    }   
+    // compare authors value to sort books according to author from A-Z
+    function compareAuthors(a, b){
+        let authorA = a.author.toLowerCase();
+        let authorB = b.author.toLowerCase();
+        // sort in descending order Z-A
+        if (authorA < authorB) return -1; 
+        // sort in ascending order A-Z
+        else if (authorA > authorB) return 1;
+        // if authors are equal sort nothing
+        else return 0;
+    }
+    // convert JSON string to object and sort this object by comparison or random
+    // before assigning it to a new array that should be displayed instead of the original array
+    function sortedByTitle(){
+        books = JSON.parse(books);
+        let sortedByTitle = [...books].sort(compareTitles);
+        $('container').innerHTML = '';
+        console.table(sortedByTitle);
+        sortedByTitle.forEach(book => {
+            addBookToContainer(book);
+        });
+    }
+    // compare titles value to sort books according to title from A-Z
+    function compareTitles(a, b){
+        let titleA = a.title.toLowerCase();
+        let titleB = b.title.toLowerCase();
+        // sort in descending order Z-A
+        if (titleA < titleB) return -1; 
+        // sort in ascending order A-Z
+        else if (titleA > titleB) return 1;
+        // if authors are equal sort nothing
+        else return 0;
+    }
+    // convert JSON string to object and sort this object by comparison or random
+    // before assigning it to a new array that should be displayed instead of the original array
+    function sortedRandomly(){
+        books = JSON.parse(books);
+        let randomSort = [...books].sort(Math.random);
+        $('container').innerHTML = '';
+        console.table(randomSort);
+        randomSort.forEach(book => {
+            addBookToContainer(book);
+        });
     }
 
-    // hide unsorted array
-    function removeBooksFromContainer(){
-        books.length = 0;
-}
+
 
 /************  EVENTLISTENERS   *************/
 addBtn.addEventListener('click', addBook);
